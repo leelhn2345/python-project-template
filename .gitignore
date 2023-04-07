@@ -1,0 +1,9 @@
+# environments
+*.env
+*.venv
+
+# caches
+*cache*
+
+# root files
+*Zone.Identifier

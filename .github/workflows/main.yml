@@ -1,0 +1,50 @@
+# black
+# isort
+# flake8
+# mypy - pydantic and pyyaml
+
+name: python CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: bootstrap poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python - -y
+
+      - name: configure poetry
+        run: poetry config virtualenvs.in-project true
+
+      - name: install dependencies
+        run: poetry install
+
+      - name: run isort
+        run: poetry run isort .
+
+      - name: run black
+        run: poetry run black .
+
+      - name: run flake8
+        run: poetry run flake8 .
+
+      - name: run mypy
+        run: poetry run mypy .
