@@ -27,24 +27,24 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: bootstrap poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python - -y
+      # - name: bootstrap poetry
+      #   run: |
+      #     curl -sSL https://install.python-poetry.org | python - -y
 
-      - name: configure poetry
-        run: poetry config virtualenvs.in-project true
+      # - name: configure poetry
+      #   run: poetry config virtualenvs.in-project true
 
       - name: install dependencies
-        run: poetry install
+        run: pip3 install isort black flake8 mypy
 
       - name: run isort
-        run: poetry run isort .
+        run: isort .
 
       - name: run black
-        run: poetry run black .
+        run: black .
 
       - name: run flake8
-        run: poetry run flake8 .
+        run: flake8 .
 
       - name: run mypy
-        run: poetry run mypy .
+        run: mypy .
