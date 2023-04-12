@@ -1,8 +1,3 @@
-# black
-# isort
-# flake8
-# mypy - pydantic and pyyaml
-
 name: python CI
 
 on:
@@ -37,14 +32,11 @@ jobs:
       - name: install dependencies
         run: poetry install
 
-      - name: run isort
-        run: poetry run isort .
+      - name: run ruff
+        run: poetry run ruff check . --fix
 
       - name: run black
         run: poetry run black .
-
-      - name: run flake8
-        run: poetry run flake8 .
 
       - name: run mypy
         run: poetry run mypy .
