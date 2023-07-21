@@ -22,12 +22,19 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: bootstrap poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python - -y
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2
 
-      - name: configure poetry
-        run: poetry config virtualenvs.in-project true
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+
+      - uses: actions/cache@v3
+        name: Define a cache for the virtual environment based on the dependencies lock file
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: install dependencies
         run: poetry install
