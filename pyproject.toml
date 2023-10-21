@@ -10,8 +10,7 @@ python = ">=3.11"
 pydantic = "^1.10.7"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
-ruff = "^0.0.261"
+ruff = "^0.1.1"
 mypy = "^1.2.0"
 pre-commit = "^3.2.2"
 ipykernel = "^6.22.0"
@@ -32,6 +31,9 @@ extend-select = [
 "__init__.py" = [
   "F401", # unused import
 ]
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true
 
 [tool.mypy]
 python_version = 3.11
