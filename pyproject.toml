@@ -8,11 +8,8 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.11"
-pydantic = "^2.4.2"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.1.1"
-mypy = "^1.2.0"
 pre-commit = "^3.2.2"
 ipykernel = "^6.25.2"
 
@@ -20,12 +17,13 @@ ipykernel = "^6.25.2"
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
-[tool.ruff]
-lint.ignore = [
+[tool.ruff.lint]
+ignore = [
   "E501", # line too long
 ]
-lint.extend-select = [
-  "I", # isort - sort imports
+extend-select = [
+  "I",   # isort - sort imports
+  "ARG", # flake8 - unused arguments
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -33,17 +31,8 @@ lint.extend-select = [
   "F401", # unused import
 ]
 
-[tool.ruff.format]
-skip-magic-trailing-comma = true
-
 [tool.mypy]
-python_version = 3.11
-plugins = ["pydantic.mypy"]
+python_version = "3.11"
 strict = true
 ignore_missing_imports = true
-
-[tool.pydantic-mypy]
-init_forbid_extra = true
-init_typed = true
-warn_required_dynamic_aliases = true
-warn_untyped_fields = true
+disallow_untyped_decorators = true
