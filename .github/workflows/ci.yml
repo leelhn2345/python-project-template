@@ -20,30 +20,26 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.12
 
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-
-      - name: Setup a local virtual environment
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
+      - name: Set up uv
+        # Install latest uv version using the installer
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
       - uses: actions/cache@v4
         name: Define a cache for the virtual environment based on the dependencies lock file
         with:
           path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
+          key: venv-${{ hashFiles('uv.lock') }}
 
       - name: install dependencies
-        run: poetry install
+        run: uv sync
 
       - name: run ruff formattter
-        run: poetry run ruff format .
+        run: uv run ruff format .
 
       - name: run ruff
-        run: poetry run ruff check . --fix
+        run: uv run ruff check . --fix
 
       - name: run mypy
-        run: poetry run mypy .
+        run: uv run mypy .

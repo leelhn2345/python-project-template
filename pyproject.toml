@@ -1,23 +1,22 @@
-[tool.poetry]
-authors = ["Nelson Lee <leelhn2345@outlook.com>"]
-description = ""
+[project]
 name = "python-project-template"
-readme = "README.md"
 version = "0.1.0"
-package-mode = false
-
-[tool.poetry.dependencies]
-python = ">=3.11"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "^3.2.2"
-ipykernel = "^6.25.2"
-mypy = "^1.10.0"
-ruff = "^0.4.10"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
 
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core"]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+  "pre-commit>=3.8.0",
+  "ruff>=0.6.1",
+  "ipykernel>=6.29.5",
+  "mypy>=1.11.1",
+]
 
 [tool.ruff.lint]
 ignore = [
@@ -34,7 +33,7 @@ extend-select = [
 ]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = true
 ignore_missing_imports = true
 disallow_untyped_decorators = true
